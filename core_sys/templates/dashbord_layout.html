@@ -1,0 +1,403 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<title>uwakasi</title>
+	<!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 11]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="umoja wa watu wanaotoka kanda ya kaskazin." />
+	<meta name="keywords"
+		content="uwakasi">
+	<meta name="author" content="peter massawe" />
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+      <link href="{% static 'plugins/bootstrap/css/bootstrap.min.css '%}" rel="stylesheet">
+      <link href="{% static 'css/style.css '%}" rel="stylesheet">
+
+      <!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> -->
+      <script src="{% static 'plugins/jquery/js/jquery.min.js'%}"></script>
+
+      <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+      <script src="{% static 'plugins/chart-morris/js/morris.min.js'%}"></script>
+
+      <!-- for datalable -->
+      <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script> 
+</head>
+
+<body class="">
+	<!-- [ Pre-loader ] start -->
+	<div class="loader-bg">
+		<div class="loader-track">
+			<div class="loader-fill"></div>
+		</div>
+	</div>
+	<!-- [ Pre-loader ] End -->
+{% block nav%}
+	<!-- [ navigation menu ] start -->
+	<nav class="pcoded-navbar menupos-fixed menu-light brand-blue ">
+		<div class="navbar-wrapper ">
+			<div class="navbar-brand header-logo">
+				<a href="index.html" class="b-brand">
+					<img src="../assets/images/logo.svg" alt="" class="logo images">
+					<img src="../assets/images/logo-icon.svg" alt="" class="logo-thumb images">
+				</a>
+				<a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
+			</div>
+			<div class="navbar-content scroll-div">
+				<ul class="nav pcoded-inner-navbar">
+					<li class="nav-item pcoded-menu-caption">
+						<label>Navigation</label>
+					</li>
+					<li class="nav-item">
+						<a href="index.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+					</li>
+					<li class="nav-item pcoded-menu-caption">
+						<label>UI Element</label>
+					</li>
+		<!-- 			<li class="nav-item pcoded-hasmenu">
+						<a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Componant</span></a>
+						<ul class="pcoded-submenu">
+							<li class=""><a href="bc_button.html" class="">Button</a></li>
+							<li class=""><a href="bc_badges.html" class="">Badges</a></li>
+							<li class=""><a href="bc_breadcrumb-pagination.html" class="">Breadcrumb & paggination</a></li>
+							<li class=""><a href="bc_collapse.html" class="">Collapse</a></li>
+							<li class=""><a href="bc_progress.html" class="">Progress</a></li>
+							<li class=""><a href="bc_tabs.html" class="">Tabs & pills</a></li>
+							<li class=""><a href="bc_typography.html" class="">Typography</a></li>
+						</ul>
+					</li> -->
+					<!-- <li class="nav-item pcoded-menu-caption">
+						<label>Forms &amp; table</label>
+					</li> -->
+					<li class="nav-item">
+						<a href="{% url 'core_sys:members'%}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">MEMBERS</span></a>
+					</li>
+						<li class="nav-item">
+						<a href="{% url 'core_sys:attendance'%}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">ATTENDANCE</span></a>
+					</li>
+					</li>
+						<li class="nav-item">
+						<a href="{% url 'core_sys:report'%}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">REPORTS</span></a>
+					</li>
+		<!-- 			<li class="nav-item">
+						<a href="tbl_bootstrap.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-align-justify"></i></span><span class="pcoded-mtext">Bootstrap table</span></a>
+					</li>
+					<li class="nav-item pcoded-menu-caption">
+						<label>Chart & Maps</label>
+					</li>
+					<li class="nav-item">
+						<a href="chart-morris.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Chart</span></a>
+					</li>
+					<li class="nav-item">
+						<a href="map-google.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-map"></i></span><span class="pcoded-mtext">Maps</span></a>
+					</li>
+					<li class="nav-item pcoded-menu-caption">
+						<label>Pages</label>
+					</li> -->
+			<!-- 		<li class="nav-item pcoded-hasmenu">
+						<a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">Authentication</span></a>
+						<ul class="pcoded-submenu">
+							<li class=""><a href="auth-signup.html" class="" target="_blank">Sign up</a></li>
+							<li class=""><a href="auth-signin.html" class="" target="_blank">Sign in</a></li>
+						</ul>
+					</li> -->
+					
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+	<!-- [ navigation menu ] end -->
+	{%endblock%}
+
+
+
+	<!-- [ Main Content ] start -->
+	<div class="pcoded-main-container">
+		<div class="pcoded-wrapper">
+			<div class="pcoded-content">
+				<div class="pcoded-inner-content">
+					<div class="main-body">
+						<div class="page-wrapper">
+							<!-- [ breadcrumb ] start -->
+							<div class="page-header">
+								<div class="page-block">
+									<div class="row align-items-center">
+										<div class="col-md-12">
+											<div class="page-header-title">
+												{%block hd_title%}
+
+												<h5>Home</h5>
+												{%endblock%}
+											</div>
+											<ul class="breadcrumb">
+												<li class="breadcrumb-item"><a href="#"><i class="feather icon-home"></i></a></li>
+												<li class="breadcrumb-item"><a href="#!">Analytics Dashboard</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- [ breadcrumb ] end -->
+							<!-- [ Main Content ] start -->
+							{%block Main_Content%}
+							<div class="row">
+
+								<!-- product profit start -->
+								<div class="col-xl-3 col-md-6">
+									<div class="card prod-p-card bg-c-red">
+										<div class="card-body">
+											<div class="row align-items-center m-b-25">
+												<div class="col">
+													<h6 class="m-b-5 text-white">Total Profit</h6>
+													<h3 class="m-b-0 text-white">$1,783</h3>
+												</div>
+												<div class="col-auto">
+													<i class="fas fa-money-bill-alt text-c-red f-18"></i>
+												</div>
+											</div>
+											<p class="m-b-0 text-white"><span class="label label-danger m-r-10">+11%</span>From Previous Month</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-xl-3 col-md-6">
+									<div class="card prod-p-card bg-c-blue">
+										<div class="card-body">
+											<div class="row align-items-center m-b-25">
+												<div class="col">
+													<h6 class="m-b-5 text-white">Total Orders</h6>
+													<h3 class="m-b-0 text-white">15,830</h3>
+												</div>
+												<div class="col-auto">
+													<i class="fas fa-database text-c-blue f-18"></i>
+												</div>
+											</div>
+											<p class="m-b-0 text-white"><span class="label label-primary m-r-10">+12%</span>From Previous Month</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-xl-3 col-md-6">
+									<div class="card prod-p-card bg-c-green">
+										<div class="card-body">
+											<div class="row align-items-center m-b-25">
+												<div class="col">
+													<h6 class="m-b-5 text-white">Average Price</h6>
+													<h3 class="m-b-0 text-white">$6,780</h3>
+												</div>
+												<div class="col-auto">
+													<i class="fas fa-dollar-sign text-c-green f-18"></i>
+												</div>
+											</div>
+											<p class="m-b-0 text-white"><span class="label label-success m-r-10">+52%</span>From Previous Month</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-xl-3 col-md-6">
+									<div class="card prod-p-card bg-c-yellow">
+										<div class="card-body">
+											<div class="row align-items-center m-b-25">
+												<div class="col">
+													<h6 class="m-b-5 text-white">Product Sold</h6>
+													<h3 class="m-b-0 text-white">6,784</h3>
+												</div>
+												<div class="col-auto">
+													<i class="fas fa-tags text-c-yellow f-18"></i>
+												</div>
+											</div>
+											<p class="m-b-0 text-white"><span class="label label-warning m-r-10">+52%</span>From Previous Month</p>
+										</div>
+									</div>
+								</div>
+								<!-- product profit end -->		
+								</div>
+								{%endblock%}
+
+				
+		
+							</div>
+
+							<!-- [ Main Content ] end -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	<!-- </div> -->
+	<!-- [ Main Content ] end -->
+
+
+
+	<!-- Required Js -->
+	<script src="{%static 'js/vendor-all.min.js' %}"></script>
+	<script src="{%static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{%static 'js/pcoded.min.js '%}"></script>
+	<script>
+		$('#addMember').click(function () {
+		$('#addForm').modal('show');
+	});
+
+	$('#add_upload').click(function () {
+	$('#uploadForm').modal('show');
+	});
+
+	// ADD MEMBER USING FORM FUNCTIONS                  
+	$('#AddMemberForm').submit(function (e) {
+		e.preventDefault();
+		isValid=true;
+		$('.error').text(''); //clear all error
+		var uid=$('#uid').val().trim()
+		var fullname=$('#fullName').val().trim()
+		var phone=$('#phone').val().trim()
+		var gender=$('#gender').val().trim()
+		var cheo=$('#cheo').val()
+		if (fullname===""){
+			$('#fnameErr').text('Jaza Jina Kamili La mwanachama');
+			$('#fullName').css("border","1px solid red");
+			isValid = false;
+
+		}
+		if (isValid){
+			var csrftoken = $('input[name=csrfmiddlewaretoken]').val();
+        $.ajax({
+            type:'POST',
+            url:"{% url 'add_member'%}",
+            // data: $('#AttendForm').serializer(),
+            data:{
+                'memberID':uid,
+                'fullname':fullname,
+                'phone':phone,
+                'gender':gender,
+                'cheo':cheo
+            },
+             headers:{
+                'X-CSRFToken': csrftoken
+                 },
+            success:function (data) {
+            	
+                if (data.success){
+                     $('#msg').html('<p class="alert alert-success">Hongera Umefanikiwa</p>')
+                        setTimeout(function () {
+                        $('#msg').html('')
+                    },3000)
+                }else{
+                    $('#msg').html('<p class="alert alert-danger">'+data.error+'</p>')
+                    setTimeout(function () {
+                        $('#msg').html('')
+                    },3000)                    
+                }                    
+            },
+            error:function () {
+                alert('SOME ERROR OCCUER')
+            }
+        })
+		}
+		
+	});
+		// ADD MEMBER USING UPLOADSFUNCTIONS                  
+	$('#UploadForm').submit(function (e) {
+		e.preventDefault();
+		isValid=true;
+		let formdata= new FormData(this)
+
+		if (isValid){
+			// var csrftoken = $('input[name=csrfmiddlewaretoken]').val();
+        $.ajax({
+            type:'POST',
+            url:"{% url 'upload_member'%}",
+            // data: $('#AttendForm').serializer(),
+            data:formdata,
+            processData:false,
+            contentType:false,             
+            success:function (data) { 
+            alert(data.success)           	
+                // if (data.success){
+                //      $('#msg').html('<p class="alert alert-success">'+data.success+'</p>')
+                //         setTimeout(function () {
+                //         $('#msg').html('')
+                //     },3000)
+                // }else{
+                //     $('#msg').html('<p class="alert alert-danger">'+data.error+'</p>')
+                //     setTimeout(function () {
+                //         $('#msg').html('')
+                //     },3000)                    
+                // }                    
+             },
+            error:function () {
+                alert('SOME ERROR OCCUER')
+            }
+        })
+		}
+		
+	});
+
+		// create report unction                  
+	$('#pdfBtn').click(function (e) {
+		// e.preventDefault();
+		var meetId=$('#kikao_option').val()
+		if (meetId===""){
+			$('#msg').html('<span style="color:red">Chagua Tarehe ...</span>')
+			setTimeout(function () {
+				$('#msg').html('')
+				
+			},4000)
+
+		}
+		else{
+			// alert('dd')
+			var url ="{%url 'core_sys:kikao' %}"
+			// window.location.href="{%url 'core_sys:kikao' %}";
+			window.open(url,"_BLANK");
+		
+
+		
+
+		}
+		
+
+		// if (isValid){
+		// 	// var csrftoken = $('input[name=csrfmiddlewaretoken]').val();
+        // $.ajax({
+        //     type:'POST',
+        //     url:"{% url 'upload_member'%}",
+        //     // data: $('#AttendForm').serializer(),
+        //     data:formdata,
+        //     processData:false,
+        //     contentType:false,             
+        //     success:function (data) { 
+        //     alert(data.success)           	
+        //         // if (data.success){
+        //         //      $('#msg').html('<p class="alert alert-success">'+data.success+'</p>')
+        //         //         setTimeout(function () {
+        //         //         $('#msg').html('')
+        //         //     },3000)
+        //         // }else{
+        //         //     $('#msg').html('<p class="alert alert-danger">'+data.error+'</p>')
+        //         //     setTimeout(function () {
+        //         //         $('#msg').html('')
+        //         //     },3000)                    
+        //         // }                    
+        //      },
+        //     error:function () {
+        //         alert('SOME ERROR OCCUER')
+        //     }
+        // })
+		// }
+		
+	});
+
+	</script>
+
+</body>
+
+</html>

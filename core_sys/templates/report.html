@@ -1,0 +1,148 @@
+{% extends "dashbord_layout.html"%}
+
+{%block hd_title%}
+<h5>REPORTS</h5>
+{%endblock%}
+
+{%block Main_Content%}
+
+<div class="container mt-4 ">
+	<div class="card d-flex text-center">
+		<div class="card-header">
+			<div class="card-title">
+				
+				<div class="row">
+					<!-- <form id="reportF" autocomplete="false"> -->
+					<div class="col-3">						
+                        <label class="form-label">VIKAO</label>
+			            <select class="form-control" id="kikao_option" required>
+			              <option value="">Chagua....</option>
+			              {%for data in vikao%}
+			              <option value="{{data.meetId}}">{{data.meetingdate}}</option>
+			              
+			              {%endfor%}
+			            </select>
+			            <span id="msg"></span>
+  					</div>
+  					<div class="col-3">  						 	
+  						 	 <button type="submit" class="btn btn-primary" id ='sech'>Show</button>        
+         			</div>
+         			<div class="col-3">  						 	
+  						 	 <button  class="btn btn-primary" id ='pdfBtn'>Pdf</button>        
+         			</div>	
+         										
+						<!-- </form>						 -->
+				</div>			
+			</div>
+		</div>
+		         <div class="card-body table-border-style" style="height:400px;overflow-y: auto;">
+
+    </div>		
+	</div>	
+</div>
+<!-- manul member add -->
+<div class="modal fade" id ="addForm">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5>ONGEZA MWANACHAMA</h5>
+			</div>
+			<div class="modal-body">
+				
+                    <form id="AddMemberForm" autocomplete="false">
+                        {% csrf_token %}
+
+                        <!-- <div class="row"> -->
+                            <div class="col mb-6">
+                                 
+                                <label class="form-label">NAMBA YA  MWANACHAMA(M-KOBA ID)</label>
+                                <input type="text" class="form-control" id="uid">
+                                <span class="error" id="uidErr"></span>            
+                            </div>
+
+                            <div class="col mb-6">
+                                <label class="form-label">JINA KAMILI LA MWANACHAMA</label>
+                                <input type="text" class="form-control" id="fullName">
+                                <span class="error" id="fnameErr"></span>
+                            </div>
+                    
+
+                        <div class="col mb-6">
+                            <label class="form-label">Phone Number</label>
+
+                            <input type="tel" class="form-control" placeholder="+2557xxxxxxxx" id ='phone' >
+                            <span class="error" id="phoneErr"></span>
+                        </div>
+
+                        <div class="col mb-6">
+                             <label class="form-label">GENDER</label>
+            <select class="form-control" id="gender" required>
+              <option value="">Chagua....</option>
+              <option value="Male">MALE</option>
+              <option value="Female">FEMALE</option>
+            </select>
+  </div> 
+                       <div class="col mb-6">
+                             <label class="form-label">CHEO</label>
+            <select class="form-control" id="cheo" required>
+              <option value="">Chagua....</option>
+              <option value="Mwenyekiti">Mwenyekiti</option>
+              <option value="M/Mwenyekiti">M/Mwenyekiti</option>
+              <option value="Katibu">Katibu</option>
+              <option value="M/Katibu">M/Katibu</option>
+              <option value="Mweka Hazina">Mweka Hazina</option>
+              <option value="Mjumbe">Mjumbe</option>
+            </select>
+  </div> 
+   <div class="col mb-6">
+         <p id='msg'></p>
+         <button type="submit" class="btn btn-primary" id ='addMemberBtn'>Hifadhi</button>
+         </div>     
+        </div>
+       
+       </form>
+			</div>
+			<div class="modal-footer">
+
+				
+			</div>
+			
+		</div>
+	</div>	
+</div>
+<!-- member form uploads -->
+<div class="modal fade" id ="uploadForm">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5>UPLOAD DATA IN EXCEL</h5>
+			</div>
+			<div class="modal-body">
+				<form id="UploadForm" autocomplete="false"enctype='multpart/form-data'>
+					 {% csrf_token %}
+					<div class="row">
+                            <div class="col mb-6">
+                                 
+                                <label class="form-label">Upload Excel file</label>
+                                <input type="file" class="form-control" placeholder="CHEO" name ='file_data' id="file_data" accept=".xlsx,xls">            
+                            </div>
+                             <div class="col mb-6">
+                                <p id="msg"></p>
+                              <button type='submit'class="btn btn-primary">Upload Excel File</button>   
+                                         
+                            </div>
+                        </div>
+
+				</form>
+			</div>
+			<div class="modal-footer">
+				
+			</div>
+			
+		</div>
+	</div>	
+</div>
+
+
+{%endblock%}
+

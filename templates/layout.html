@@ -1,0 +1,338 @@
+{%load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Landing Page with Top Banner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 CDN -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+      <link href="{% static 'plugins/bootstrap/css/bootstrap.min.css '%}" rel="stylesheet">
+
+      <!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> -->
+      <script src="{% static 'plugins/jquery/js/jquery.min.js'%}"></script>
+
+      <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+      <script src="{% static 'plugins/chart-morris/js/morris.min.js'%}"></script>
+
+      <!-- for datalable -->
+      <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script> 
+
+    <style>
+        .top-banner {
+            background: #ffc107;
+            color: #000;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Top Banner -->
+<div class="top-banner text-center py-2">
+    UWAKAS-MEETING ATTENDANCE SYSTEM
+</div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">MyBrand</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="#">Website</a></li>
+                <li class="nav-item"><a class="nav-link" href="{%url 'core_sys:about'%}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+
+<section class="bg-primary text-white text-center py-5">
+   
+    <div class="container">
+        <h1 class="display-4">Karibu kwenye kikao cha  UWAKAS</h1>
+        <p class="lead">Kikao cha: {{met_info.MeetNo}} Tarehe: {{met_info.meetingdate}}.</p>
+        <p class="lead">Ukumbi: {{met_info.location}}</p>
+        
+        <!-- <a href="#" class="btn btn-light btn-lg mt-3">Get Started</a> -->
+    </div>
+   
+</section>
+
+
+<!-- Features Section -->
+<section class="py-5">
+ 
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-12">
+            
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <h3 class="text-center mb-4">FORM YA MAHUDHURIO</h3>
+
+                    <form id="AttendForm" autocomplete="false">
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                 <input type="hidden" name="meetId" value="{{met_info.meetId}}" id ='kikao'>
+
+                                <label class="form-label">JINA LA MWANACHAMA</label>
+                                  <select class="form-control" required id="member_id" name="member_id">
+                        }
+    <option selected>Chagua....</option>
+    {%for member in members %}
+    <option value="{{member.memberID}}">{{member.fullname}}</option>
+   
+    {%endfor%}
+  </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">CHEO</label>
+                                <input type="text" class="form-control" placeholder="CHEO" id="cheo" disabled='disabled'>
+                            </div>
+                        </div>                      
+
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" placeholder="Enter phone number" id ='phone' disabled='disabled'>
+                        </div>
+
+                        <div class="mb-3">
+                             <label class="form-label">AMEOMBA RUHUSA?</label>
+            <select class="form-control" id="ruhsa" required>
+              <option value="">Chagua....</option>
+              <option value="yes">Ndio</option>
+              <option value="no">Hapana</option>
+            </select>
+  </div>
+        <div class="mb-3" id="mtoataarifa" name ='hiddenField' style="display:none;">
+            <label class="form-label">ALIYETOA TAARIFA</label>
+  <select class="form-control" id="m_taarifa">
+    <option value="">Chagua....</option>
+    {%for member in members %}
+    <option value="{{member.memberID}}">{{member.fullname}}</option>
+   
+    {%endfor%}
+  </select>
+          </div>
+                        </div>
+                  
+
+
+                        <div class="d-grid">
+                             <p id='msg'></p>
+                            <button type="submit" class="btn btn-primary">Hifadhi</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Call to Action -->
+<section class="bg-dark text-white text-center">
+    <div class="row justify-content-center">
+ <div class="container py-5">
+  <h2 class="text-center mb-4">REPORT YA MAHUDHURIO </h2>
+
+  <div class="card p-4 shadow">
+    <canvas id="myChart"></canvas>
+  </div>
+</div>
+</div>
+</section>
+
+
+<!-- Footer -->
+<footer class="bg-light text-center py-3">
+    <p class="mb-0">&copy; 2026 UWAKASI. </p>
+    <p>Developed by <i>Mwema Technology(0769712490)</i></p>
+    <!-- <a href="#">Developed by <i>Mwema Technology(0769712490)</i></a> -->
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  $(document).ready(function(){
+    // document.getElementById('hiddenField').required=false;
+    //================ruhusa functionality============
+    $('#ruhsa').change(function(){
+      var value = $(this).val();
+      if(value === 'yes'){
+        $('#mtoataarifa').slideDown();
+      } else {
+        $('#mtoataarifa').slideUp();
+      }
+    });
+  });
+  //===========get member other informations
+  $('#member_id').change(function () {
+      var member_id=$(this).val();
+      $.ajax({
+        url:"{% url 'get_member_data' %}",
+        data:{
+            'member_id':member_id
+
+        },
+       
+        success:function (data) {
+            $('#phone').val(data.phone);
+            $('#cheo').val(data.cheo);
+        }       
+
+      });
+  });
+//submit form data==========================
+  $('#AttendForm').submit(function (e) {
+    e.preventDefault();
+ 
+      
+      var member_id= $('#member_id').val()
+      var ruhusa= $('#ruhsa').val()
+      var mtoataarifa= $('#m_taarifa').val() 
+      var kikao= $('#kikao').val() 
+      // alert(kikao)
+      
+      // alert(mtoataarifa+''+ruhusa +''+ member_id)
+      var chek=0
+ 
+      if (ruhusa==='yes'){    
+       
+         if (member_id == mtoataarifa){
+            alert('Anayetoa Taarifa Za ruhusa hawezi kuwa Mhusika')
+            chek=1        
+        }
+        if(mtoataarifa==''){
+            alert('Anayetoa Taarifa Za Ruhusa ')
+            chek=1
+
+        }
+      }  
+      if (chek==0){
+        var csrftoken = $('input[name=csrfmiddlewaretoken]').val();
+        $.ajax({
+            type:'POST',
+            url:"{% url 'take_attendance'%}",
+            // data: $('#AttendForm').serializer(),
+            data:{
+                'memberID':member_id,
+                'Ruhusa':ruhusa,
+                'mtoataarifa':mtoataarifa,
+                'meetId':kikao
+            },
+             headers:{
+                'X-CSRFToken': csrftoken
+                 },
+            success:function (data) {
+                if (data.status=='Success'){
+                     $('#msg').html('<p class="alert alert-success">Hongera Umefanikiwa</p>')
+                        setTimeout(function () {
+                        $('#msg').html('')
+                    },3000)
+                }else{
+                    $('#msg').html('<p class="alert alert-danger">'+data.error+'</p>')
+                    setTimeout(function () {
+                        $('#msg').html('')
+                    },3000)
+                    // alert(data.error)
+                }
+
+                    // alert('Umefaulu Kutuma Taarifa Zako')
+
+            },
+            error:function () {
+                alert('SOME ERROR OCCUER')
+            }
+        })
+      }   
+
+  });
+
+
+  //=============attendant report
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['January', 'February', 'March', 'April'],
+        datasets: [
+          {
+            label: 'Total Members',
+            data: [50, 60, 55, 70],
+            backgroundColor: 'rgba(54, 162, 235, 0.7)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          },
+          {
+            label: 'Attend',
+            data: [45, 50, 48, 65],
+            backgroundColor: 'rgba(75, 192, 192, 0.7)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          },
+          {
+            label: 'Ruhusa',
+            data: [5, 10, 7, 5],
+            backgroundColor: 'rgba(255, 99, 132, 0.7)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          datalabels: {
+            anchor: 'end',
+            align: 'end',
+            color: '#000',
+            font: {
+              weight: 'bold'
+            }
+          },
+          legend: {
+            position: 'top'
+          },
+          title: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 10
+            },
+            title: {
+              display: true,
+              text: 'Number of Members'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Month'
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels] // Enable the data labels plugin
+    });
+</script>
+</body>
+</html>

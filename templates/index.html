@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Landing Page with Top Banner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+      <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <!-- for datalable -->
+      <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script> 
+
+    <style>
+        .top-banner {
+            background: #ffc107;
+            color: #000;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Top Banner -->
+<div class="top-banner text-center py-2">
+    UWAKAS-MEETING ATTENDANCE SYSTEM
+</div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">MyBrand</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="#">Website</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="bg-primary text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-4">Karibu kwenye kikao cha  UWAKAS</h1>
+        <p class="lead">Kikao cha: kwanza Tarehe: 1/03/2026.</p>
+        <p class="lead">Ukumbi: LUGAYILA-HUNGUMALWA.</p>
+        <!-- <a href="#" class="btn btn-light btn-lg mt-3">Get Started</a> -->
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+ 
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-12">
+            
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <h3 class="text-center mb-4">FORM YA MAHUDHURIO</h3>
+
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">JINA LA MWANACHAMA</label>
+                                  <select class="form-select" required>
+    <option selected>Chagua....</option>
+    <option>Tanzania</option>
+    <option>Kenya</option>
+    <option>Uganda</option>
+  </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">CHEO</label>
+                                <input type="text" class="form-control" placeholder="Enter last name" disabled='disabled'>
+                            </div>
+                        </div>                      
+
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" placeholder="Enter phone number" disabled='disabled'>
+                        </div>
+
+                        <div class="mb-3">
+                             <label class="form-label">AMEOMBA RUHUSA?</label>
+            <select class="form-select" id="ruhsa" required>
+              <option value="">Chagua....</option>
+              <option value="yes">Ndio</option>
+              <option value="no">Hapana</option>
+            </select>
+  </div>
+        <div class="mb-3" id="mtoataarifa" style="display:none;">
+            <label class="form-label">ALIYETOA TAARIFA</label>
+                                        <select class="form-select" required>
+    <option selected>Chagua....</option>
+    <option>Tanzania</option>
+    <option>Kenya</option>
+    <option>Uganda</option>
+  </select>
+          </div>
+                        </div>
+                  
+
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Hifadhi</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Call to Action -->
+<section class="bg-dark text-white text-center">
+    <div class="row justify-content-center">
+ <div class="container py-5">
+  <h2 class="text-center mb-4">REPORT YA MAHUDHURIO </h2>
+
+  <div class="card p-4 shadow">
+    <canvas id="myChart"></canvas>
+  </div>
+</div>
+</div>
+</section>
+
+
+<!-- Footer -->
+<footer class="bg-light text-center py-3">
+    <p class="mb-0">&copy; 2026 UWAKASI. </p>
+    <p>Developed by <i>Mwema Technology(0769712490)</i></p>
+    <!-- <a href="#">Developed by <i>Mwema Technology(0769712490)</i></a> -->
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('#ruhsa').change(function(){
+      var value = $(this).val();
+      if(value === 'yes'){
+        $('#mtoataarifa').slideDown();
+      } else {
+        $('#mtoataarifa').slideUp();
+      }
+    });
+  });
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['January', 'February', 'March', 'April'],
+        datasets: [
+          {
+            label: 'Total Members',
+            data: [50, 60, 55, 70],
+            backgroundColor: 'rgba(54, 162, 235, 0.7)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          },
+          {
+            label: 'Attend',
+            data: [45, 50, 48, 65],
+            backgroundColor: 'rgba(75, 192, 192, 0.7)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          },
+          {
+            label: 'Ruhusa',
+            data: [5, 10, 7, 5],
+            backgroundColor: 'rgba(255, 99, 132, 0.7)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          datalabels: {
+            anchor: 'end',
+            align: 'end',
+            color: '#000',
+            font: {
+              weight: 'bold'
+            }
+          },
+          legend: {
+            position: 'top'
+          },
+          title: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 10
+            },
+            title: {
+              display: true,
+              text: 'Number of Members'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Month'
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels] // Enable the data labels plugin
+    });
+</script>
+</body>
+</html>
